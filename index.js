@@ -9,6 +9,9 @@
         { title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 }
     ]
 
+    const orderedMovies = movies.slice().sort((a, b) => b.year - a.year)
+    const orderedMoviesByRating = movies.slice().sort((a, b) => b.rating - a.rating)
+
     app.get("/", (req, res)=> {
     res.send("ok");
     });
@@ -16,7 +19,6 @@
     app.get("/test", (req, res)=> {
     res.send("status:200, message:ok");
     });
-
 
     // app.get("/time", (req, res)=> {
     //     res.send("status:200, message:14:20");
@@ -77,6 +79,19 @@
         });
     });
 
+    app.get("/movies/get/id/:id", function(req, res) {
+        const id = parseInt(req.params.id);
+      
+        if(id <= movies.length && id > 0) {
+          res.send({status: 200, data: movies[id-1]
+          })
+        } else {
+            console.log(res.status(404))
+          res.send({status: 404, error: 'true', message:'the movie ' + id + ' does not exist'})
+          }
+      });
+    
+
     app.get("/movies/get/by-date", (req, res)=> {
         res.send({
             status:200, 
@@ -96,18 +111,17 @@
         res.send({
             status:200, 
             data: movies.sort(function compare( a, b ) {
-                if ( a.title < b.title ){
-                  return -1;
+            if ( a.title < b.title ){
+                return -1;
                 }
                 if ( a.title > b.title ){
-                  return 1;
+                return 1;
                 }
                 return 0;
               }
             )  
         });
     });
-    
     
     app.get("/movies/edit", (req, res)=> {
         res.send();
