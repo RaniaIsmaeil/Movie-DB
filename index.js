@@ -76,6 +76,39 @@
             data: movies
         });
     });
+
+    app.get("/movies/get/by-date", (req, res)=> {
+        res.send({
+            status:200, 
+            data: orderedMovies
+        });
+    });
+
+
+    app.get("/movies/get/by-rating", (req, res)=> {
+    res.send({
+        status:200, 
+        data: orderedMoviesByRating
+        });
+    });
+
+    app.get("/movies/get/by-title", (req, res)=> {
+        res.send({
+            status:200, 
+            data: movies.sort(function compare( a, b ) {
+                if ( a.title < b.title ){
+                  return -1;
+                }
+                if ( a.title > b.title ){
+                  return 1;
+                }
+                return 0;
+              }
+            )  
+        });
+    });
+    
+    
     app.get("/movies/edit", (req, res)=> {
         res.send();
     });
@@ -84,5 +117,4 @@
         res.send();
     });
     
-
     app.listen(3000);
