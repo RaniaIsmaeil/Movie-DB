@@ -150,11 +150,26 @@
 
     app.get("/movies/edit", (req, res)=> {
         res.send();
+    
     });
     
-    app.get("/movies/delete", (req, res)=> {
-        res.send();
-    });
+    app.get("/movies/delete/:id", (req,res) => {
+        const id = parseInt(req.params.id);
+        
+        if (id>movies.length || id<=0){
+           res.send({status:404, error:true, message:`the movie ${id} does not exist`})
+        }
+        else{
+            movies.splice(id-1,1);
+            res.send(movies);
+        }
+     });
+   
+    app.get("/movies/delete/:id", (req,res) => {
+        
+   
+        
+     });
     
     app.listen(port, () => {
         console.log(`Example app listening at http://localhost:${port}`)
