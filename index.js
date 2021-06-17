@@ -74,12 +74,12 @@
         })
     }
     });
-    app.get("/movies/add", (req,res) => {
+    app.post("/movies/add", (req,res) => {
 
         const movie = {
-          title : req.query.title,
-          year : req.query.year,
-          rating : req.query.rating
+          title : req.body.title,
+          year : req.body.year,
+          rating : req.body.rating
         };
         if(movie.rating == undefined) {
           movie.rating = 4;
@@ -146,11 +146,11 @@
           res.send({status: 404, error: 'true', message:'the movie ' + id + ' does not exist'})
           }
       });
-app.get("/movies/update/:Id", (req, res) => {
+app.put("/movies/update/:Id", (req, res) => {
     let id=req.params.Id;
-    var updatedTitle=req.query.title;
-    var updatedRating=req.query.rating;
-    var updatedYear=req.query.year;
+    var updatedTitle=req.body.title;
+    var updatedRating=req.body.rating;
+    var updatedYear=req.body.year;
 
     if ( id > 0 && id < movies.length){
         if(updatedTitle != movies[id].title && updatedTitle != ""){
@@ -173,7 +173,7 @@ app.get("/movies/update/:Id", (req, res) => {
    
     });
     
-    app.get("/movies/delete/:id", (req,res) => {
+    app.delete("/movies/delete/:id", (req,res) => {
         const id = parseInt(req.params.id);
         
         if (id>movies.length || id<=0){
