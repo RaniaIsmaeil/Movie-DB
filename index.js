@@ -146,30 +146,6 @@
           res.send({status: 404, error: 'true', message:'the movie ' + id + ' does not exist'})
           }
       });
-    
-
-//       app.put("/movies/edit/:Id", (req, res) => {
-//         let id=req.params.Id;
-//         var editTitle=req.body.title;
-//         var editRating=req.body.rating;
-//         var editYear=req.body.year;
-    
-//         if ( id > 0 && id < movies.length){
-//             if(editYear != movies[id].year && editYear.length === 4 && editYear !== "" || editTitle != movies[id].title && editTitle != "" || editRating!=movies[id].rating && editRating !=""){
-//                 movies[id].title=editTitle;
-//                 movies[id].rating=editRating;
-//                 movies[id].year=editYear;
-//             }
-//             else if( editYear.length !== 4){ 
-//                 res.json({error:true, message: "can't update"})
-//             }
-//         res.send({status:200, data: movies})
-//         }
-//         else{
-//             res.send({error:true, message:`movie of this id ${id} does not exist`})
-//         }
-
-//   });
 app.get("/movies/update/:Id", (req, res) => {
     let id=req.params.Id;
     var updatedTitle=req.query.title;
