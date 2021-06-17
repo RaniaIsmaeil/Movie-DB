@@ -148,9 +148,53 @@
       });
     
 
-    app.get("/movies/edit", (req, res)=> {
-        res.send();
+//       app.put("/movies/edit/:Id", (req, res) => {
+//         let id=req.params.Id;
+//         var editTitle=req.body.title;
+//         var editRating=req.body.rating;
+//         var editYear=req.body.year;
     
+//         if ( id > 0 && id < movies.length){
+//             if(editYear != movies[id].year && editYear.length === 4 && editYear !== "" || editTitle != movies[id].title && editTitle != "" || editRating!=movies[id].rating && editRating !=""){
+//                 movies[id].title=editTitle;
+//                 movies[id].rating=editRating;
+//                 movies[id].year=editYear;
+//             }
+//             else if( editYear.length !== 4){ 
+//                 res.json({error:true, message: "can't update"})
+//             }
+//         res.send({status:200, data: movies})
+//         }
+//         else{
+//             res.send({error:true, message:`movie of this id ${id} does not exist`})
+//         }
+
+//   });
+app.get("/movies/update/:Id", (req, res) => {
+    let id=req.params.Id;
+    var updatedTitle=req.query.title;
+    var updatedRating=req.query.rating;
+    var updatedYear=req.query.year;
+
+    if ( id > 0 && id < movies.length){
+        if(updatedTitle != movies[id].title && updatedTitle != ""){
+            movies[id].title=updatedTitle;
+        }
+        else if(updatedYear != movies[id].year && updatedYear.length === 4){ 
+             movies[id].year=updatedYear;
+        }
+        else if( updatedYear.length !== 4){ 
+            res.json({error:true, message: "can't update"})
+        }
+        else if(updatedRating!=movies[id].rating){
+             movies[id].rating=updatedRating;
+        }
+    res.send({status:200, data: movies})
+    }
+    else{
+        res.send({error:true, message:`movie of this ${id} does not exist`})
+    }
+   
     });
     
     app.get("/movies/delete/:id", (req,res) => {
@@ -164,13 +208,7 @@
             res.send(movies);
         }
      });
-   
-    app.get("/movies/delete/:id", (req,res) => {
-        
-   
-        
-     });
-    
+
     app.listen(port, () => {
         console.log(`Example app listening at http://localhost:${port}`)
       })
